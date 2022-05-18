@@ -1,32 +1,14 @@
 
-import { galleryItems } from './gallery-items';
-
-
-console.log(galleryItems);
-
-
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
+// Add imports above this line
+import { galleryItems } from './gallery-items';
+// Change code below this line
+const galleryEl = document.querySelector('.gallery');
 
-const imgContainer = document.querySelector('.gallery');
+galleryEl.insertAdjacentHTML("beforeend", galleryItemMarkup(galleryItems));
 
+import galleryItemMarkup from "./lightbox";
 
-
-const cardsMarkup = createImgCards(galleryItems);  
-imgContainer.insertAdjacentHTML('beforeend', cardsMarkup);
-
-function createImgCards(galleryItems) {
-    return galleryItems.map(({ preview, original, description }) => {
-        return `
-<a class="gallery__item" href="${original}">
-  <img class="gallery__image" src="${preview}" alt="${description}" />
-</a>
-    `
-    }).join('');
-}
-
-
-const gallery = new SimpleLightbox('.gallery a');
-
-gallery.options.captionsData = "alt";
-gallery.options.captionDelay = 250;
+let lightbox = new SimpleLightbox('.gallery__link', {captionDelay: 250});
+console.log(galleryItems);

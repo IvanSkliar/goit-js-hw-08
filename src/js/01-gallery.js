@@ -1,33 +1,13 @@
-import SimpleLightbox from 'simplelightbox';
-
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 // Add imports above this line
-import { galleryItems } from './gallery-items.js';
-
+import { galleryItems } from './gallery-items';
 // Change code below this line
+const galleryEl = document.querySelector('.gallery');
 
-const galleryRef = document.querySelector('.gallery');
+galleryEl.insertAdjacentHTML("beforeend", galleryItemMarkup(galleryItems));
 
-// ------------Создать галлерею------------
+import galleryItemMarkup from "./lightbox";
 
-function createGalleryCard(galleryRef) {
-    return galleryItems.map(galleryItem => {
-       galleryRef.insertAdjacentHTML('beforeend', `<a class="gallery__item" href="${galleryItem.original}">
-  <img class="gallery__image" src="${galleryItem.preview}" alt="${galleryItem.description}"/> 
-</a>`);
-    });
-}
-console.log(createGalleryCard(galleryRef));
-
-// ---------------Создание simplelightbox---------------
-
-  let gallery = new SimpleLightbox('.gallery a', {
-    captionDelay: 250,
-  captionsData: 'alt',});
-    gallery.on('show.simplelightbox');
-
+let lightbox = new SimpleLightbox('.gallery__link', {captionDelay: 250});
 console.log(galleryItems);
-
-export default {
-  galleryRef,
-  gallery,
-}
